@@ -178,6 +178,38 @@ function setupTickerGeometry() {
   track.style.animation = '';
 }
 
+/* --- Debug: Mobile/Safari layout diagnostics --- */
+function debugMobileLayout(runId) {
+  var nav = document.querySelector('nav');
+  var navBottom = document.querySelector('.nav-bottom');
+  var hero = document.querySelector('.hero');
+  var body = document.body;
+  var docEl = document.documentElement;
+  var activeSection = document.querySelector('.page-section.active-section');
+  var firstInput = document.querySelector('input, select, textarea');
+  var vv = window.visualViewport;
+  var navRect = nav ? nav.getBoundingClientRect() : null;
+  var heroRect = hero ? hero.getBoundingClientRect() : null;
+  var sectionRect = activeSection ? activeSection.getBoundingClientRect() : null;
+  var firstInputStyle = firstInput ? window.getComputedStyle(firstInput) : null;
+
+  // #region agent log
+  fetch('http://127.0.0.1:7242/ingest/0bc01019-f661-462c-9695-d402f261a73b',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({runId:runId,hypothesisId:'H1',location:'app.js:debugMobileLayout:overflow',message:'Viewport and horizontal overflow metrics',data:{userAgent:navigator.userAgent,innerWidth:window.innerWidth,docClientWidth:docEl.clientWidth,docScrollWidth:docEl.scrollWidth,bodyScrollWidth:body.scrollWidth,hasHorizontalOverflow:docEl.scrollWidth>window.innerWidth+1},timestamp:Date.now()})}).catch(()=>{});
+  // #endregion
+
+  // #region agent log
+  fetch('http://127.0.0.1:7242/ingest/0bc01019-f661-462c-9695-d402f261a73b',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({runId:runId,hypothesisId:'H2',location:'app.js:debugMobileLayout:nav-overlap',message:'Sticky nav and section overlap metrics',data:{navTop:navRect?Math.round(navRect.top):null,navHeight:navRect?Math.round(navRect.height):null,heroTop:heroRect?Math.round(heroRect.top):null,activeSectionTop:sectionRect?Math.round(sectionRect.top):null,menuOpen:!!(navBottom&&navBottom.classList.contains('open'))},timestamp:Date.now()})}).catch(()=>{});
+  // #endregion
+
+  // #region agent log
+  fetch('http://127.0.0.1:7242/ingest/0bc01019-f661-462c-9695-d402f261a73b',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({runId:runId,hypothesisId:'H3',location:'app.js:debugMobileLayout:viewport',message:'Visual viewport and orientation metrics',data:{innerHeight:window.innerHeight,docClientHeight:docEl.clientHeight,visualViewportHeight:vv?Math.round(vv.height):null,visualViewportOffsetTop:vv?Math.round(vv.offsetTop):null,orientation:(screen.orientation&&screen.orientation.type)?screen.orientation.type:null},timestamp:Date.now()})}).catch(()=>{});
+  // #endregion
+
+  // #region agent log
+  fetch('http://127.0.0.1:7242/ingest/0bc01019-f661-462c-9695-d402f261a73b',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({runId:runId,hypothesisId:'H4',location:'app.js:debugMobileLayout:form-font',message:'Form control font-size check for Safari zoom',data:{firstInputTag:firstInput?firstInput.tagName:null,firstInputFontSize:firstInputStyle?firstInputStyle.fontSize:null,touchAction:body.style.touchAction||null},timestamp:Date.now()})}).catch(()=>{});
+  // #endregion
+}
+
 /* --- Scroll to Top Button --- */
 function initScrollTop() {
   var btn = document.getElementById('scrollTopBtn');
@@ -668,6 +700,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Center ticker start position and set seamless loop distance
   setupTickerGeometry();
+  debugMobileLayout('mobile-baseline');
 
   // Auto-update copyright year
   var yearEl = document.getElementById('copyright-year');
@@ -680,5 +713,10 @@ document.addEventListener('DOMContentLoaded', function() {
       if (navBottom) navBottom.classList.remove('open');
     }
     setupTickerGeometry();
+    debugMobileLayout('mobile-resize');
+  });
+
+  window.addEventListener('orientationchange', function() {
+    debugMobileLayout('mobile-orientation');
   });
 });

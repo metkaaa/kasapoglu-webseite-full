@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Kasapoglu</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-400: #9ca3af;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+            --radius: 12px;
+            --shadow: 0 4px 16px rgba(15,23,42,0.06);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--gray-50);
+            color: var(--gray-800);
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .admin-header {
+            background: var(--gray-900);
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .admin-header h1 { font-size: 1.15rem; font-weight: 600; }
+        .admin-header a { color: var(--gray-400); font-size: 0.88rem; text-decoration: none; }
+        .admin-header a:hover { color: white; }
+
+        /* Login */
+        .login-box {
+            max-width: 380px;
+            margin: 4rem auto;
+            background: white;
+            padding: 2rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+        .login-box h2 { font-size: 1.3rem; margin-bottom: 1.5rem; }
+        .login-box input {
+            width: 100%;
+            padding: 0.7rem;
+            border: 1px solid var(--gray-200);
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: inherit;
+            margin-bottom: 1rem;
+        }
+        .login-box input:focus { outline: none; border-color: var(--primary); }
+        .login-box button {
+            width: 100%;
+            padding: 0.75rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 999px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        .login-box button:hover { background: var(--primary-dark); }
+        .login-error { color: #dc2626; font-size: 0.88rem; margin-top: 0.5rem; display: none; }
+
+        /* Dashboard */
+        .dashboard { display: none; padding: 2rem; max-width: 1200px; margin: 0 auto; }
+        .dashboard.show { display: block; }
+
+        /* Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+        .stat-value { font-size: 2rem; font-weight: 700; color: var(--primary); }
+        .stat-label { font-size: 0.85rem; color: var(--gray-500); margin-top: 0.25rem; }
+
+        /* Toolbar */
+        .toolbar {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .toolbar select, .toolbar input {
+            padding: 0.5rem 0.75rem;
+            border: 1px solid var(--gray-200);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-family: inherit;
+        }
+        .toolbar button {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 999px;
+            font-weight: 600;
+            font-size: 0.88rem;
+            cursor: pointer;
+            background: var(--primary);
+            color: white;
+        }
+        .toolbar button:hover { background: var(--primary-dark); }
+        .toolbar .btn-outline {
+            background: white;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+        .toolbar .btn-outline:hover { background: var(--gray-50); }
+
+        /* Table */
+        .table-container {
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            overflow-x: auto;
+        }
+        table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+        th {
+            background: var(--gray-50);
+            padding: 0.75rem 1rem;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.82rem;
+            color: var(--gray-500);
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            border-bottom: 1px solid var(--gray-200);
+        }
+        td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--gray-100);
+            color: var(--gray-700);
+            vertical-align: top;
+        }
+        tr:hover td { background: var(--gray-50); }
+        .msg-cell { max-width: 250px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+        /* Status Badges */
+        .badge {
+            display: inline-block;
+            padding: 0.2rem 0.6rem;
+            border-radius: 999px;
+            font-size: 0.78rem;
+            font-weight: 600;
+        }
+        .badge-neu { background: #dbeafe; color: #1d4ed8; }
+        .badge-in_bearbeitung { background: #fef3c7; color: #92400e; }
+        .badge-erledigt { background: #dcfce7; color: #166534; }
+
+        /* Status Dropdown */
+        .status-select {
+            padding: 0.25rem 0.5rem;
+            border: 1px solid var(--gray-200);
+            border-radius: 6px;
+            font-size: 0.82rem;
+            font-family: inherit;
+            cursor: pointer;
+        }
+
+        /* File link */
+        .file-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.85rem;
+        }
+        .file-link:hover { text-decoration: underline; }
+
+        @media (max-width: 768px) {
+            .dashboard { padding: 1rem; }
+            .stats-grid { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="admin-header">
+    <h1>📊 Kasapoglu Admin</h1>
+    <div>
+        <a href="schluesselservice.html">← Zur Website</a>
+        <a href="#" onclick="logout()" style="margin-left:1rem;">Abmelden</a>
+    </div>
+</div>
+
+<!-- Login -->
+<div id="login-screen" class="login-box">
+    <h2>Admin Login</h2>
+    <input type="password" id="login-password" placeholder="Passwort eingeben" onkeydown="if(event.key==='Enter') doLogin()">
+    <button onclick="doLogin()">Anmelden</button>
+    <div id="login-error" class="login-error">Falsches Passwort.</div>
+</div>
+
+<!-- Dashboard -->
+<div id="dashboard" class="dashboard">
+    <!-- Stats -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-value" id="stat-total">0</div>
+            <div class="stat-label">Anfragen gesamt</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" id="stat-month">0</div>
+            <div class="stat-label">Diesen Monat</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" id="stat-neu">0</div>
+            <div class="stat-label">Neue Anfragen</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" id="stat-bearbeitung">0</div>
+            <div class="stat-label">In Bearbeitung</div>
+        </div>
+    </div>
+
+    <!-- Toolbar -->
+    <div class="toolbar">
+        <select id="filter-status" onchange="loadContacts()">
+            <option value="all">Alle Status</option>
+            <option value="neu">Neu</option>
+            <option value="in_bearbeitung">In Bearbeitung</option>
+            <option value="erledigt">Erledigt</option>
+        </select>
+        <input type="text" id="filter-search" placeholder="Suchen..." oninput="loadContacts()">
+        <button onclick="loadContacts()">Aktualisieren</button>
+        <button class="btn-outline" onclick="exportCSV()">CSV Export</button>
+    </div>
+
+    <!-- Table -->
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Ticket</th>
+                    <th>Name</th>
+                    <th>E-Mail</th>
+                    <th>Betreff</th>
+                    <th>Nachricht</th>
+                    <th>Datei</th>
+                    <th>Status</th>
+                    <th>Datum</th>
+                </tr>
+            </thead>
+            <tbody id="contacts-body">
+                <tr><td colspan="8" style="text-align:center; padding:2rem; color:var(--gray-400);">Laden...</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+var adminToken = '';
+
+function doLogin() {
+    var pw = document.getElementById('login-password').value;
+    fetch('/api/admin/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password: pw })
+    })
+    .then(function(res) { return res.json(); })
+    .then(function(data) {
+        if (data.success) {
+            adminToken = data.token;
+            document.getElementById('login-screen').style.display = 'none';
+            document.getElementById('dashboard').classList.add('show');
+            loadStats();
+            loadContacts();
+        } else {
+            document.getElementById('login-error').style.display = 'block';
+        }
+    })
+    .catch(function() {
+        document.getElementById('login-error').style.display = 'block';
+    });
+}
+
+function logout() {
+    adminToken = '';
+    document.getElementById('login-screen').style.display = 'block';
+    document.getElementById('dashboard').classList.remove('show');
+    document.getElementById('login-password').value = '';
+}
+
+function loadStats() {
+    fetch('/api/admin/stats?token=' + encodeURIComponent(adminToken))
+    .then(function(res) { return res.json(); })
+    .then(function(data) {
+        if (!data.success) return;
+        var s = data.stats;
+        document.getElementById('stat-total').textContent = s.total;
+        document.getElementById('stat-month').textContent = s.thisMonth;
+        document.getElementById('stat-neu').textContent = s.byStatus.neu || 0;
+        document.getElementById('stat-bearbeitung').textContent = s.byStatus.in_bearbeitung || 0;
+    });
+}
+
+function loadContacts() {
+    var statusFilter = document.getElementById('filter-status').value;
+    var searchTerm = (document.getElementById('filter-search').value || '').toLowerCase();
+
+    fetch('/api/admin/contacts?token=' + encodeURIComponent(adminToken))
+    .then(function(res) { return res.json(); })
+    .then(function(data) {
+        if (!data.success) return;
+        var contacts = data.contacts;
+
+        // Filter
+        if (statusFilter !== 'all') {
+            contacts = contacts.filter(function(c) { return c.status === statusFilter; });
+        }
+        if (searchTerm) {
+            contacts = contacts.filter(function(c) {
+                return (c.name || '').toLowerCase().includes(searchTerm) ||
+                       (c.email || '').toLowerCase().includes(searchTerm) ||
+                       (c.ticket || '').toLowerCase().includes(searchTerm) ||
+                       (c.message || '').toLowerCase().includes(searchTerm);
+            });
+        }
+
+        var tbody = document.getElementById('contacts-body');
+        if (contacts.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding:2rem; color:var(--gray-400);">Keine Anfragen gefunden.</td></tr>';
+            return;
+        }
+
+        tbody.innerHTML = contacts.map(function(c) {
+            var date = new Date(c.createdAt).toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+            var status = c.status || 'neu';
+            var badgeClass = 'badge-' + status;
+            var fileHtml = c.file ? '<a href="/api/admin/file/' + c.file.storedAs + '?token=' + encodeURIComponent(adminToken) + '" target="_blank" class="file-link">' + (c.file.originalName || 'Datei') + '</a>' : '–';
+
+            return '<tr>' +
+                '<td><strong>' + (c.ticket || c.id) + '</strong></td>' +
+                '<td>' + (c.name || '') + '</td>' +
+                '<td>' + (c.email || '') + '</td>' +
+                '<td>' + (c.subject || '') + '</td>' +
+                '<td class="msg-cell" title="' + (c.message || '').replace(/"/g, '&quot;') + '">' + (c.message || '') + '</td>' +
+                '<td>' + fileHtml + '</td>' +
+                '<td><select class="status-select" onchange="updateStatus(\'' + c.id + '\', this.value)">' +
+                    '<option value="neu"' + (status === 'neu' ? ' selected' : '') + '>Neu</option>' +
+                    '<option value="in_bearbeitung"' + (status === 'in_bearbeitung' ? ' selected' : '') + '>In Bearbeitung</option>' +
+                    '<option value="erledigt"' + (status === 'erledigt' ? ' selected' : '') + '>Erledigt</option>' +
+                '</select></td>' +
+                '<td style="white-space:nowrap;">' + date + '</td>' +
+            '</tr>';
+        }).join('');
+    });
+}
+
+function updateStatus(id, status) {
+    fetch('/api/admin/contacts/' + id + '?token=' + encodeURIComponent(adminToken), {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status: status })
+    })
+    .then(function(res) { return res.json(); })
+    .then(function(data) {
+        if (data.success) loadStats();
+    });
+}
+
+function exportCSV() {
+    window.open('/api/admin/export?token=' + encodeURIComponent(adminToken));
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produkte | Kasapoglu Schlüsseldienst Koblenz</title>
+    <meta name="description" content="Schlüssel-Produkte: Flachschlüssel, Buntbartschlüssel, Bohrmuldenschlüssel und Sicherheitsanlagen-Schlüssel. Fachgerechte Anfertigung im Löhr Center Koblenz.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Produkte-spezifische Styles -->
+    <style>
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+            gap: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Scroll Progress Bar -->
+<div class="scroll-progress"></div>
+
+<!-- Navigation -->
+<nav>
+    <div class="nav-container">
+        <div class="nav-top">
+            <a href="schluesselservice.html" class="logo">
+                <img src="img/logo.png" alt="Kasapoglu Logo" class="logo-img" onerror="this.style.display='none'">
+                <span>Kasapoglu Schuh&amp;Schlüsseldienst</span>
+            </a>
+            <span id="status-badge" class="status-badge closed">
+                <span class="status-dot"></span> Prüfe...
+            </span>
+            <button class="hamburger" onclick="toggleMenu()" aria-label="Menü öffnen">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+        <div class="nav-bottom">
+            <ul class="nav-links">
+                <li><a href="schluesselservice.html#start">Start</a></li>
+                <li><a href="schluesselservice.html#leistungen">Leistungen</a></li>
+                <li><a href="produkte.html">Produkte</a></li>
+                <li><a href="schluesselservice.html#autoschluessel">Autoschlüssel</a></li>
+                <li><a href="schluesselservice.html#ueber-uns">Über uns</a></li>
+                <li><a href="schluesselservice.html#kontakt">Kontakt</a></li>
+                <li><a href="schluesselservice.html#kontakt" class="nav-cta">Anfrage erstellen</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Sub Hero -->
+<div class="sub-hero">
+    <div class="sub-hero-inner">
+        <img src="img/logo.png" alt="Kasapoglu Logo" class="sub-hero-logo" onerror="this.style.display='none'">
+        <h1>Schlüssel-Produkte</h1>
+        <p>Unsere Schlüsselarten im Überblick. Für jede Anfertigung prüfen wir individuell die Machbarkeit.</p>
+    </div>
+</div>
+
+<main class="section" style="padding-top: 1.25rem;">
+    <!-- Filter -->
+    <div class="product-filter">
+        <button class="filter-btn active" data-filter="all" onclick="filterProducts('all')">Alle</button>
+        <button class="filter-btn" data-filter="standard" onclick="filterProducts('standard')">Standard</button>
+        <button class="filter-btn" data-filter="sicherheit" onclick="filterProducts('sicherheit')">Sicherheit</button>
+        <button class="filter-btn" data-filter="anlage" onclick="filterProducts('anlage')">Schließanlage</button>
+    </div>
+
+    <div class="product-grid" id="product-grid"></div>
+
+    <!-- CTA -->
+    <div class="cta-box" style="margin-top:2.5rem;">
+        <h3>Ihren Schlüssel nicht gefunden?</h3>
+        <p>Kontaktieren Sie uns – wir beraten Sie persönlich zu allen Schlüsseltypen.</p>
+        <div style="display:flex; gap:0.75rem; justify-content:center; flex-wrap:wrap; position:relative; z-index:1;">
+            <a href="schluesselservice.html#kontakt" class="btn btn-white">Anfrage erstellen</a>
+            <a href="tel:+4917672995623" class="btn" style="background:white; color:#e53935; border:none;">📞 Anrufen</a>
+        </div>
+    </div>
+</main>
+
+<!-- Footer -->
+<footer>
+    <div class="footer-content">
+        <div class="footer-section">
+            <div class="footer-brand">
+                <img src="img/logo.png" alt="Kasapoglu Logo" class="footer-logo" onerror="this.style.display='none'">
+                <h4>Kasapoglu</h4>
+            </div>
+            <p class="footer-text">Ihr zuverlässiger Partner für Schlüssel, Schuhe und Reparaturen im Löhr Center Koblenz.</p>
+            <div class="footer-social">
+                <a href="#" class="social-icon" title="Instagram" aria-label="Instagram">IG</a>
+                <a href="#" class="social-icon" title="Facebook" aria-label="Facebook">FB</a>
+                <a href="#" class="social-icon" title="Google" aria-label="Google">G</a>
+            </div>
+        </div>
+        <div class="footer-section">
+            <h4>Navigation</h4>
+            <ul class="footer-links">
+                <li><a href="schluesselservice.html#start">Start</a></li>
+                <li><a href="schluesselservice.html#leistungen">Leistungen</a></li>
+                <li><a href="produkte.html">Produkte</a></li>
+                <li><a href="schluesselservice.html#autoschluessel">Autoschlüssel</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h4>Rechtliches</h4>
+            <ul class="footer-links">
+                <li><a href="schluesselservice.html#impressum">Impressum</a></li>
+                <li><a href="schluesselservice.html#datenschutz">Datenschutz</a></li>
+                <li><a href="schluesselservice.html#kontakt">Kontakt</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h4>Standort &amp; Kontakt</h4>
+            <p class="footer-text">Hohenfelderstraße 22<br>Löhr Center, 56068 Koblenz<br><em>Ganz oben neben REWE</em></p>
+            <p class="footer-text" style="margin-top:0.75rem;">
+                Mo–Sa: 09:30 – 20:00 Uhr<br>
+                So: geschlossen
+            </p>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; <span id="copyright-year">2025</span> Kasapoglu Schuh- &amp; Schlüsseldienst Koblenz. Alle Rechte vorbehalten.</p>
+    </div>
+</footer>
+
+<!-- Cookie Consent Banner -->
+<div id="cookie-banner" class="cookie-banner" style="display:none;">
+    <div class="cookie-inner">
+        <p>Diese Website verwendet Cookies, um Ihnen die bestmögliche Erfahrung zu bieten.
+            <a href="schluesselservice.html#datenschutz" style="color:var(--primary); text-decoration:underline;">Mehr erfahren</a>
+        </p>
+        <div class="cookie-actions">
+            <button class="btn btn-primary btn-sm" onclick="acceptCookies()">Akzeptieren</button>
+            <button class="btn btn-outline btn-sm" onclick="declineCookies()">Nur notwendige</button>
+        </div>
+    </div>
+</div>
+
+<!-- WhatsApp -->
+<a href="https://wa.me/4917672995623" target="_blank" rel="noopener" class="whatsapp-btn" title="WhatsApp Kontakt" aria-label="Kontakt via WhatsApp">💬</a>
+
+<!-- Scroll to Top -->
+<button class="scroll-top-btn" id="scrollTopBtn" title="Nach oben" aria-label="Nach oben scrollen">↑</button>
+
+<!-- Scripts -->
+<script src="config.js"></script>
+<script>
+/* ========== PRODUKTE KONFIGURATION ==========
+   Neue Produkte hier hinzufügen.
+   Felder:
+   - name: Produktname
+   - description: Kurzbeschreibung (1 Satz)
+   - image: Bildpfad (z.B. "img/schluessel.jpg")
+   - bullets: Stichpunkte (Array)
+   - hint: Hinweis-Text
+   - category: "standard" | "sicherheit" | "anlage"
+   - visible: true/false (für Admin-Toggle)
+   - productionTime: optional (z.B. "5–10 Min.")
+   - required: optional (z.B. "Sicherungskarte")
+   ============================================= */
+var PRODUCTS = [
+    {
+        name: "Flachschlüssel",
+        description: "Der klassische Haustürschlüssel für viele gängige Zylinder.",
+        image: "img/Flachschluessel.jpg",
+        bullets: ["Schnell vor Ort gefertigt", "Für viele Standardtüren", "Beratung inklusive"],
+        hint: "Schlüssel als Vorlage mitbringen.",
+        category: "standard",
+        visible: true,
+        productionTime: "5–10 Min."
+    },
+    {
+        name: "Buntbartschlüssel",
+        description: "Traditionelle Schlüssel für ältere Türen und Möbelschlösser.",
+        image: "img/Sicherheitsschluessel.jpg",
+        bullets: ["Geeignet für Zimmertüren", "Auch für Möbelschlösser", "Prüfung vor Ort"],
+        hint: "Schloss oder vorhandenen Schlüssel mitbringen.",
+        category: "standard",
+        visible: true,
+        productionTime: "5–10 Min."
+    },
+    {
+        name: "Bohrmuldenschlüssel",
+        description: "Moderne Sicherheitsschlüssel mit zusätzlichem Einbruchschutz.",
+        image: "img/Sicherheitsschluessel.jpg",
+        bullets: ["Erhöhter Einbruchschutz", "Präzise Fertigung", "Beratung zur Sicherheit"],
+        hint: "Sicherungskarte, falls vorhanden, mitbringen.",
+        category: "sicherheit",
+        visible: true,
+        productionTime: "10–20 Min.",
+        required: "Sicherungskarte empfohlen"
+    },
+    {
+        name: "Sicherheitsanlagen-Schlüssel",
+        description: "Schlüssel für Schließanlagen mit berechtigungsgebundenem Schutz.",
+        image: "img/Sicherheitsschluessel.jpg",
+        bullets: ["Für moderne Schließanlagen", "Berechtigungsprüfung erforderlich", "Diskrete Abwicklung"],
+        hint: "Nur mit Sicherungskarte und Berechtigungsnachweis.",
+        category: "anlage",
+        visible: true,
+        productionTime: "20–30 Min.",
+        required: "Sicherungskarte + Ausweis"
+    }
+];
+</script>
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,104 @@
+[
+  {
+    "id": "1770931761978",
+    "name": "Mehmet Kasapoglu",
+    "email": "kasapoglumehmetkerem@gmail.com",
+    "phone": "01622778913",
+    "subject": "autoschluessel",
+    "message": "alksjdlkasjdlkasjdfloksalkjfhdslkflsdjflsdf",
+    "createdAt": "2026-02-12T21:29:21.978Z",
+    "file": null,
+    "status": "in_bearbeitung",
+    "updatedAt": "2026-02-13T15:44:20.730Z"
+  },
+  {
+    "id": "1770931959250",
+    "name": "Sevim Kasapoglu",
+    "email": "kasapoglumehmetkerem@gmail.com",
+    "phone": "01773696049",
+    "subject": "autoschluessel",
+    "message": "asdasdasdsad",
+    "createdAt": "2026-02-12T21:32:39.250Z",
+    "file": null,
+    "status": "erledigt",
+    "updatedAt": "2026-02-13T01:57:42.797Z"
+  },
+  {
+    "id": "1770932513770",
+    "name": "Osman nuri Kasapoglu",
+    "email": "elektrometka@gmail.com",
+    "phone": "01624708793",
+    "subject": "autoschluessel",
+    "message": "kishodfhjsodfjhslfjlsdjflsdjkf",
+    "createdAt": "2026-02-12T21:41:53.770Z",
+    "file": null,
+    "status": "in_bearbeitung",
+    "updatedAt": "2026-02-13T15:44:16.103Z"
+  },
+  {
+    "id": "1770932529361",
+    "name": "Osman nuri Kasapoglu",
+    "email": "osmankasapoglu@web.de",
+    "phone": "01773696049",
+    "subject": "schuhreparatur",
+    "message": "df/;flkgj o;pdfgoki;dfglkdfjglkdflkgdfjlkgdfjlgkd",
+    "createdAt": "2026-02-12T21:42:09.361Z",
+    "file": {
+      "originalName": "IMG_20251018_023238_089.jpg",
+      "mimeType": "image/jpeg",
+      "size": 3759178,
+      "storedAs": "ba5dfc458a229ada1cce9313e1ab9536"
+    },
+    "status": "in_bearbeitung",
+    "updatedAt": "2026-02-13T15:44:15.295Z"
+  },
+  {
+    "id": "1770933780486",
+    "name": "Sevim Kasapoglu",
+    "email": "kasapoglumehmetkerem@gmail.com",
+    "phone": "01773696049",
+    "subject": "produkte",
+    "message": "asdasdasdfdgfdghfghfg",
+    "createdAt": "2026-02-12T22:03:00.486Z",
+    "file": null,
+    "status": "erledigt",
+    "updatedAt": "2026-02-13T15:44:14.247Z"
+  },
+  {
+    "id": "1770943159326",
+    "name": "Sevim Kasapoglu",
+    "email": "kasapoglumehmetkerem@gmail.com",
+    "phone": "01773696049",
+    "subject": "autoschluessel",
+    "message": "kjhhkjhkhkjjhfgjkhkkjhkhkh",
+    "createdAt": "2026-02-13T00:39:19.326Z",
+    "file": null,
+    "status": "erledigt",
+    "updatedAt": "2026-02-13T15:44:13.388Z"
+  },
+  {
+    "id": "1771003959432",
+    "ticket": "KS-2026-00007",
+    "name": "Sevim Kasapoglu",
+    "email": "kasapoglumehmetkerem@gmail.com",
+    "phone": "01773696049",
+    "subject": "produkte",
+    "message": "david du dummer nuttensohn",
+    "status": "erledigt",
+    "createdAt": "2026-02-13T17:32:39.432Z",
+    "file": null,
+    "updatedAt": "2026-02-13T17:33:24.643Z"
+  },
+  {
+    "id": "1771968463785",
+    "ticket": "KS-2026-00008",
+    "name": "sdfsdf",
+    "email": "lskjdhfosdjfkdsjlf@hmapsdmf.com",
+    "phone": "sdfsdf",
+    "subject": "autoschluessel",
+    "message": "sdfsfsdfsdfdsfglkdfgj",
+    "status": "neu",
+    "createdAt": "2026-02-24T21:27:43.785Z",
+    "file": null
+  }
+]

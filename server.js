@@ -12,6 +12,16 @@ const crypto = require('crypto');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// #region agent log
+function agentDebugLog(payload) {
+  fetch('http://127.0.0.1:7242/ingest/0bc01019-f661-462c-9695-d402f261a73b', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  }).catch(() => {});
+}
+// #endregion
+
 /* --- Verzeichnisse --- */
 const DATA_DIR = path.join(__dirname, 'data');
 const CONTACT_FILE = path.join(DATA_DIR, 'contacts.json');
@@ -94,6 +104,27 @@ function adminAuth(req, res, next) {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname));
+app.use((req, res, next) => {
+  if (req.method === 'GET' && (req.path === '/' || req.path === '/schluesselservice.html')) {
+    // #region agent log
+    agentDebugLog({
+      runId: 'render-root',
+      hypothesisId: 'H2',
+      location: 'server.js:request-middleware',
+      message: 'Incoming important GET request',
+      data: {
+        method: req.method,
+        path: req.path,
+        host: req.headers.host || null,
+        hasIndexHtml: fs.existsSync(path.join(__dirname, 'index.html')),
+        hasSchluesselserviceHtml: fs.existsSync(path.join(__dirname, 'schluesselservice.html'))
+      },
+      timestamp: Date.now()
+    });
+    // #endregion
+  }
+  next();
+});
 
 /* ============================================================
    PUBLIC API
@@ -280,8 +311,43 @@ app.get('/api/admin/file/:filename', adminAuth, (req, res) => {
   res.sendFile(filePath);
 });
 
+app.use((req, res, next) => {
+  // #region agent log
+  agentDebugLog({
+    runId: 'render-root',
+    hypothesisId: 'H1',
+    location: 'server.js:404-fallback',
+    message: 'Request reached 404 fallback',
+    data: {
+      method: req.method,
+      path: req.path,
+      host: req.headers.host || null
+    },
+    timestamp: Date.now()
+  });
+  // #endregion
+  next();
+});
+
 /* --- Server starten --- */
 app.listen(PORT, () => {
+  // #region agent log
+  agentDebugLog({
+    runId: 'render-root',
+    hypothesisId: 'H3',
+    location: 'server.js:listen-start',
+    message: 'Server started with file existence snapshot',
+    data: {
+      port: PORT,
+      cwd: process.cwd(),
+      dirname: __dirname,
+      hasIndexHtml: fs.existsSync(path.join(__dirname, 'index.html')),
+      hasSchluesselserviceHtml: fs.existsSync(path.join(__dirname, 'schluesselservice.html')),
+      hasAdminHtml: fs.existsSync(path.join(__dirname, 'admin.html'))
+    },
+    timestamp: Date.now()
+  });
+  // #endregion
   console.log(`\n  Kasapoglu Server läuft:`);
   console.log(`  → Website:   http://localhost:${PORT}/schluesselservice.html`);
   console.log(`  → Produkte:  http://localhost:${PORT}/produkte.html`);

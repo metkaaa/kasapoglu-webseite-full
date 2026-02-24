@@ -104,6 +104,9 @@ function adminAuth(req, res, next) {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname));
+app.get('/', (req, res) => {
+  res.redirect('/schluesselservice.html');
+});
 app.use((req, res, next) => {
   if (req.method === 'GET' && (req.path === '/' || req.path === '/schluesselservice.html')) {
     // #region agent log

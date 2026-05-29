@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vape Verkauf – Aron & Mehmet</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <div class="app-root">
+      <header class="top-bar">
+        <h1>Vape Verkaufsübersicht</h1>
+        <div class="cost-info">
+          <span>Gesamt: <strong>160</strong> Vapes • <strong>980 €</strong></span>
+          <span>Kosten pro Vape: <strong id="costPerVape"></strong></span>
+        </div>
+      </header>
+
+      <main>
+        <section id="profile-select" class="card profile-select-card">
+          <h2>Wer ist gerade aktiv?</h2>
+          <p>Bitte wähle dein Profil aus, bevor du Verkäufe erfasst.</p>
+          <div class="profile-grid">
+            <button class="profile-card" data-profile="Aron">
+              <div class="avatar avatar-aron">A</div>
+              <div class="profile-name">Aron</div>
+              <div class="profile-meta">Verkäufe &amp; Umsatz im Blick</div>
+            </button>
+            <button class="profile-card" data-profile="Mehmet">
+              <div class="avatar avatar-mehmet">M</div>
+              <div class="profile-name">Mehmet</div>
+              <div class="profile-meta">Verkäufe &amp; Umsatz im Blick</div>
+            </button>
+          </div>
+        </section>
+
+        <section id="dashboard" class="dashboard hidden">
+          <section class="card active-profile-card">
+            <h2>Aktives Profil</h2>
+            <div class="active-profile-info">
+              <div id="activeProfileAvatar" class="avatar">A</div>
+              <div>
+                <div id="activeProfileName" class="active-name">Aron</div>
+                <button id="changeProfileBtn" class="link-button">
+                  Profil wechseln
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <section class="card sale-entry-card">
+            <h2>Verkauf erfassen</h2>
+            <form id="saleForm" class="sale-form">
+              <label for="salePrice">
+                Verkaufspreis pro Vape in €
+              </label>
+              <div class="input-row">
+                <input
+                  id="salePrice"
+                  type="number"
+                  min="0"
+                  step="0.01"
+                  required
+                  placeholder="z. B. 10 oder 12"
+                />
+                <label class="qty-label" for="saleQuantity">Menge</label>
+                <input
+                  id="saleQuantity"
+                  type="number"
+                  min="1"
+                  step="1"
+                  value="1"
+                  required
+                />
+                <button type="submit" class="primary-button">
+                  Verkauf buchen
+                </button>
+              </div>
+            </form>
+            <p class="hint">
+              Die Kosten pro Vape werden automatisch mit
+              <strong>6,13 €</strong> berechnet
+              (980 € / 160 Stück).
+            </p>
+          </section>
+
+          <section class="card stats-card">
+            <h2>Übersicht für <span id="statsProfileName">Aron</span></h2>
+            <div class="stats-grid">
+              <div class="stat">
+                <div class="stat-label">Verkaufte Vapes</div>
+                <div id="statUnits" class="stat-value">0</div>
+              </div>
+              <div class="stat">
+                <div class="stat-label">Umsatz</div>
+                <div id="statRevenue" class="stat-value">0,00 €</div>
+              </div>
+              <div class="stat">
+                <div class="stat-label">Kosten</div>
+                <div id="statCost" class="stat-value">0,00 €</div>
+              </div>
+              <div class="stat">
+                <div class="stat-label">Gewinn</div>
+                <div id="statProfit" class="stat-value positive">0,00 €</div>
+              </div>
+            </div>
+          </section>
+
+          <section class="card charts-card">
+            <h2>Verlauf – Umsatz &amp; Gewinn</h2>
+            <p class="hint">
+              Die Diagramme zeigen immer die Daten des gerade aktiven Profils.
+            </p>
+            <div class="charts-grid">
+              <div class="chart-block">
+                <h3>Umsatz pro Verkauf</h3>
+                <canvas id="revenueChart"></canvas>
+              </div>
+              <div class="chart-block">
+                <h3>Gewinn pro Verkauf</h3>
+                <canvas id="profitChart"></canvas>
+              </div>
+            </div>
+          </section>
+
+          <section class="card comparison-card">
+            <h2>Vergleich Aron vs. Mehmet</h2>
+            <div class="comparison-grid">
+              <div>
+                <h3>Verkaufte Vapes</h3>
+                <canvas id="unitsComparisonChart"></canvas>
+              </div>
+              <div>
+                <h3>Gesamtgewinn</h3>
+                <canvas id="profitComparisonChart"></canvas>
+              </div>
+            </div>
+          </section>
+        </section>
+      </main>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
+
